@@ -1,0 +1,220 @@
+Microsoft Windows [versão 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Positivo>cd c:\xampp\mysql\bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 271
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use revisao;
+Database changed
+MariaDB [revisao]> describe produtos;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| codigo       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome_produto | varchar(255) | YES  |     | NULL    |                |
+| cor          | varchar(255) | YES  |     | NULL    |                |
+| preco        | decimal(5,2) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.005 sec)
+
+MariaDB [revisao]> INSERT INTO produtos (nome_produto,cor,preco)
+    -> VALUES ('CADERNO','AZUL',15.75),
+    -> ('LAPIS','AMARELO',0.99),
+    -> ('BORRACHA','BRANCA',1.50);
+Query OK, 3 rows affected (0.058 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [revisao]> SELECT * FROM PRODUTOS;
++--------+--------------+---------+-------+
+| codigo | nome_produto | cor     | preco |
++--------+--------------+---------+-------+
+|      1 | CADERNO      | AZUL    | 15.75 |
+|      2 | LAPIS        | AMARELO |  0.99 |
+|      3 | BORRACHA     | BRANCA  |  1.50 |
++--------+--------------+---------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [revisao]> INSERT INTO produtos (nome_produto,cor,preco)
+    -> VALUES ('CANETA','PRETA',1.50),
+    -> ('FICHARIO','VERMELHO',15.50),
+    -> ('ESTOJO','AZUL',24.90),
+    -> ('COLA','BRANCA',4.30),
+    -> ('APONTADOR','VERDE',1.50),
+    -> ('REGUA','TRASPARENTE',5.00),
+    -> ('FOLHA QUADRICULADA','BRANCA',10.00);
+Query OK, 7 rows affected (0.066 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [revisao]> SELECT * FROM PRODUTOS;
++--------+--------------------+-------------+-------+
+| codigo | nome_produto       | cor         | preco |
++--------+--------------------+-------------+-------+
+|      1 | CADERNO            | AZUL        | 15.75 |
+|      2 | LAPIS              | AMARELO     |  0.99 |
+|      3 | BORRACHA           | BRANCA      |  1.50 |
+|      4 | CANETA             | PRETA       |  1.50 |
+|      5 | FICHARIO           | VERMELHO    | 15.50 |
+|      6 | ESTOJO             | AZUL        | 24.90 |
+|      7 | COLA               | BRANCA      |  4.30 |
+|      8 | APONTADOR          | VERDE       |  1.50 |
+|      9 | REGUA              | TRASPARENTE |  5.00 |
+|     10 | FOLHA QUADRICULADA | BRANCA      | 10.00 |
++--------+--------------------+-------------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [revisao]> DESCRIBE COMPRAS;
++-------------+---------+------+-----+---------+----------------+
+| Field       | Type    | Null | Key | Default | Extra          |
++-------------+---------+------+-----+---------+----------------+
+| nf          | int(11) | NO   | PRI | NULL    | auto_increment |
+| data_compra | date    | YES  |     | NULL    |                |
+| id_cliente  | int(11) | YES  | MUL | NULL    |                |
+| codigo      | int(11) | YES  | MUL | NULL    |                |
++-------------+---------+------+-----+---------+----------------+
+4 rows in set (0.020 sec)
+
+MariaDB [revisao]> SELECT * FROM CLIENTES;
++------------+------------------+--------------------+--------+
+| id_cliente | nome_cliente     | email              | estado |
++------------+------------------+--------------------+--------+
+|          1 | ETEC MCM         | ETEC@EMAIL.COM     | SP     |
+|          2 | ETEC MAUA        | ETECMAUA@EMAIL.COM | SP     |
+|          3 | ETEC LAURO GOMES | ETECLG@EMAIL.COM   | RJ     |
++------------+------------------+--------------------+--------+
+3 rows in set (0.004 sec)
+
+MariaDB [revisao]> INSERT INTO COMPRAS (data_compra,id_cliente,codigo)
+    -> VALUES ('2022-08-21',2,1),
+    -> ('2022-08-21',2,2),
+    -> ('2022-08-21',1,1),
+    -> ('2022-08-21',1,4),
+    -> ('2022-08-21',3,4);
+Query OK, 5 rows affected (0.100 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [revisao]> SELECT * FROM compras;
++----+-------------+------------+--------+
+| nf | data_compra | id_cliente | codigo |
++----+-------------+------------+--------+
+|  1 | 2022-08-21  |          2 |      1 |
+|  2 | 2022-08-21  |          2 |      2 |
+|  3 | 2022-08-21  |          1 |      1 |
+|  4 | 2022-08-21  |          1 |      4 |
+|  5 | 2022-08-21  |          3 |      4 |
++----+-------------+------------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [revisao]> select * from produtos;
++--------+--------------------+-------------+-------+
+| codigo | nome_produto       | cor         | preco |
++--------+--------------------+-------------+-------+
+|      1 | CADERNO            | AZUL        | 15.75 |
+|      2 | LAPIS              | AMARELO     |  0.99 |
+|      3 | BORRACHA           | BRANCA      |  1.50 |
+|      4 | CANETA             | PRETA       |  1.50 |
+|      5 | FICHARIO           | VERMELHO    | 15.50 |
+|      6 | ESTOJO             | AZUL        | 24.90 |
+|      7 | COLA               | BRANCA      |  4.30 |
+|      8 | APONTADOR          | VERDE       |  1.50 |
+|      9 | REGUA              | TRASPARENTE |  5.00 |
+|     10 | FOLHA QUADRICULADA | BRANCA      | 10.00 |
++--------+--------------------+-------------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [revisao]> UPDATE PRODUTOS
+    -> SET NOME_PRODUTO = 'LAPIS COLORIDO'
+    -> WHERE CODIGO = 2;
+Query OK, 1 row affected (0.049 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [revisao]> select * from produtos;
++--------+--------------------+-------------+-------+
+| codigo | nome_produto       | cor         | preco |
++--------+--------------------+-------------+-------+
+|      1 | CADERNO            | AZUL        | 15.75 |
+|      2 | LAPIS COLORIDO     | AMARELO     |  0.99 |
+|      3 | BORRACHA           | BRANCA      |  1.50 |
+|      4 | CANETA             | PRETA       |  1.50 |
+|      5 | FICHARIO           | VERMELHO    | 15.50 |
+|      6 | ESTOJO             | AZUL        | 24.90 |
+|      7 | COLA               | BRANCA      |  4.30 |
+|      8 | APONTADOR          | VERDE       |  1.50 |
+|      9 | REGUA              | TRASPARENTE |  5.00 |
+|     10 | FOLHA QUADRICULADA | BRANCA      | 10.00 |
++--------+--------------------+-------------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [revisao]> DELETE FROM PRODUTOS WHERE CODIGO=8;
+Query OK, 1 row affected (0.096 sec)
+
+MariaDB [revisao]> select * from produtos;
++--------+--------------------+-------------+-------+
+| codigo | nome_produto       | cor         | preco |
++--------+--------------------+-------------+-------+
+|      1 | CADERNO            | AZUL        | 15.75 |
+|      2 | LAPIS COLORIDO     | AMARELO     |  0.99 |
+|      3 | BORRACHA           | BRANCA      |  1.50 |
+|      4 | CANETA             | PRETA       |  1.50 |
+|      5 | FICHARIO           | VERMELHO    | 15.50 |
+|      6 | ESTOJO             | AZUL        | 24.90 |
+|      7 | COLA               | BRANCA      |  4.30 |
+|      9 | REGUA              | TRASPARENTE |  5.00 |
+|     10 | FOLHA QUADRICULADA | BRANCA      | 10.00 |
++--------+--------------------+-------------+-------+
+9 rows in set (0.001 sec)
+
+MariaDB [revisao]> SELECT CLIENTES.NOME_CLIENTE,PRODUTOS.NOME_PRODUTO
+    -> FROM CLIENTES,COMPRAS,PRODUTOS
+    -> WHERE CLIENTES.ID_CLIENTE = COMPRAS.ID_CLIENTE AND
+    -> COMPRAS.CODIGO = PRODUTOS.CODIGO AND
+    -> c
+    -> CLIENTES.ID_CLIENTE = 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'CLI
+ENTES.ID_CLIENTE = 2' at line 6
+MariaDB [revisao]> SELECT CLIENTES.NOME_CLIENTE,PRODUTOS.NOME_PRODUTO
+    -> FROM CLIENTES,COMPRAS,PRODUTOS
+    -> WHERE CLIENTES.ID_CLIENTE = COMPRAS.ID_CLIENTE AND
+    -> COMPRAS.CODIGO = PRODUTOS.CODIGO AND
+    -> CLIENTES.ID_CLIENTE = 2;
++--------------+----------------+
+| NOME_CLIENTE | NOME_PRODUTO   |
++--------------+----------------+
+| ETEC MAUA    | CADERNO        |
+| ETEC MAUA    | LAPIS COLORIDO |
++--------------+----------------+
+2 rows in set (0.002 sec)
+
+MariaDB [revisao]>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
