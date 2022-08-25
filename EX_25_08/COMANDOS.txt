@@ -1,0 +1,164 @@
+Microsoft Windows [versão 10.0.19043.1165]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Alunos>cd c:\xampp\mysql\bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 118
+Server version: 10.4.17-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use revisao;
+Database changed
+MariaDB [revisao]> show tables;
++-------------------+
+| Tables_in_revisao |
++-------------------+
+| clientes          |
+| compras           |
+| produtos          |
++-------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [revisao]> CREATE DATABASE IF NOT EXISTS `revisao` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+Query OK, 0 rows affected, 1 warning (0.001 sec)
+
+MariaDB [revisao]> INSERT INTO produtos (nome_produto,cor,preco)
+    -> VALUES ('APONTADOR','VERDE',1.50);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [revisao]> UPDATE PRODUTOS
+    -> SET NOME_PRODUTO = 'REGUA 30 CM'
+    -> WHERE CODIGO = 9;
+Query OK, 1 row affected (0.010 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [revisao]> SELECT * FROM PRODUTOS;
++--------+--------------------+-------------+-------+
+| codigo | nome_produto       | cor         | preco |
++--------+--------------------+-------------+-------+
+|      1 | CADERNO            | AZUL        | 15.75 |
+|      2 | LAPIS COLORIDO     | AMARELO     |  0.99 |
+|      3 | BORRACHA           | BRANCA      |  1.50 |
+|      4 | CANETA             | PRETA       |  1.50 |
+|      5 | FICHARIO           | VERMELHO    | 15.50 |
+|      6 | ESTOJO             | AZUL        | 24.90 |
+|      7 | COLA               | BRANCA      |  4.30 |
+|      9 | REGUA 30 CM        | TRASPARENTE |  5.00 |
+|     10 | FOLHA QUADRICULADA | BRANCA      | 10.00 |
+|     11 | APONTADOR          | VERDE       |  1.50 |
++--------+--------------------+-------------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [revisao]> UPDATE PRODUTOS
+    -> STE PRECO = PRECO*1.1
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'PRECO = PRECO*1.1' at line 2
+MariaDB [revisao]> UPDATE PRODUTOS
+    -> SET PRECO = PRECO*1.1
+    -> WHERE CODIGO = 3;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [revisao]> SELECT * FROM PRODUTOS;
++--------+--------------------+-------------+-------+
+| codigo | nome_produto       | cor         | preco |
++--------+--------------------+-------------+-------+
+|      1 | CADERNO            | AZUL        | 15.75 |
+|      2 | LAPIS COLORIDO     | AMARELO     |  0.99 |
+|      3 | BORRACHA           | BRANCA      |  1.65 |
+|      4 | CANETA             | PRETA       |  1.50 |
+|      5 | FICHARIO           | VERMELHO    | 15.50 |
+|      6 | ESTOJO             | AZUL        | 24.90 |
+|      7 | COLA               | BRANCA      |  4.30 |
+|      9 | REGUA 30 CM        | TRASPARENTE |  5.00 |
+|     10 | FOLHA QUADRICULADA | BRANCA      | 10.00 |
+|     11 | APONTADOR          | VERDE       |  1.50 |
++--------+--------------------+-------------+-------+
+10 rows in set (0.000 sec)
+
+MariaDB [revisao]> SELECT * FROM PRODUTOS
+    -> WHERE COR = 'AZUL';
++--------+--------------+------+-------+
+| codigo | nome_produto | cor  | preco |
++--------+--------------+------+-------+
+|      1 | CADERNO      | AZUL | 15.75 |
+|      6 | ESTOJO       | AZUL | 24.90 |
++--------+--------------+------+-------+
+2 rows in set (0.000 sec)
+
+MariaDB [revisao]> SELECT * FROM PRODUTOS
+    -> WHERE PRECO > 10;
++--------+--------------+----------+-------+
+| codigo | nome_produto | cor      | preco |
++--------+--------------+----------+-------+
+|      1 | CADERNO      | AZUL     | 15.75 |
+|      5 | FICHARIO     | VERMELHO | 15.50 |
+|      6 | ESTOJO       | AZUL     | 24.90 |
++--------+--------------+----------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [revisao]>  SELECT * FROM PRODUTOS
+    -> WHERE PRECO BETWEEN '0.5' AND '2.00';
++--------+----------------+---------+-------+
+| codigo | nome_produto   | cor     | preco |
++--------+----------------+---------+-------+
+|      2 | LAPIS COLORIDO | AMARELO |  0.99 |
+|      3 | BORRACHA       | BRANCA  |  1.65 |
+|      4 | CANETA         | PRETA   |  1.50 |
+|     11 | APONTADOR      | VERDE   |  1.50 |
++--------+----------------+---------+-------+
+4 rows in set (0.000 sec)
+
+MariaDB [revisao]>  SELECT * FROM PRODUTOS
+    -> WHERE PRECO BETWEEN 0.5 AND 2.00;
++--------+----------------+---------+-------+
+| codigo | nome_produto   | cor     | preco |
++--------+----------------+---------+-------+
+|      2 | LAPIS COLORIDO | AMARELO |  0.99 |
+|      3 | BORRACHA       | BRANCA  |  1.65 |
+|      4 | CANETA         | PRETA   |  1.50 |
+|     11 | APONTADOR      | VERDE   |  1.50 |
++--------+----------------+---------+-------+
+4 rows in set (0.000 sec)
+
+MariaDB [revisao]> SELECT * FROM PRODUTOS;
++--------+--------------------+-------------+-------+
+| codigo | nome_produto       | cor         | preco |
++--------+--------------------+-------------+-------+
+|      1 | CADERNO            | AZUL        | 15.75 |
+|      2 | LAPIS COLORIDO     | AMARELO     |  0.99 |
+|      3 | BORRACHA           | BRANCA      |  1.65 |
+|      4 | CANETA             | PRETA       |  1.50 |
+|      5 | FICHARIO           | VERMELHO    | 15.50 |
+|      6 | ESTOJO             | AZUL        | 24.90 |
+|      7 | COLA               | BRANCA      |  4.30 |
+|      9 | REGUA 30 CM        | TRASPARENTE |  5.00 |
+|     10 | FOLHA QUADRICULADA | BRANCA      | 10.00 |
+|     11 | APONTADOR          | VERDE       |  1.50 |
++--------+--------------------+-------------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [revisao]>  DELETE FROM PRODUTOS
+    ->  WHERE CODIGO = 9;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [revisao]>  SELECT * FROM PRODUTOS;
++--------+--------------------+----------+-------+
+| codigo | nome_produto       | cor      | preco |
++--------+--------------------+----------+-------+
+|      1 | CADERNO            | AZUL     | 15.75 |
+|      2 | LAPIS COLORIDO     | AMARELO  |  0.99 |
+|      3 | BORRACHA           | BRANCA   |  1.65 |
+|      4 | CANETA             | PRETA    |  1.50 |
+|      5 | FICHARIO           | VERMELHO | 15.50 |
+|      6 | ESTOJO             | AZUL     | 24.90 |
+|      7 | COLA               | BRANCA   |  4.30 |
+|     10 | FOLHA QUADRICULADA | BRANCA   | 10.00 |
+|     11 | APONTADOR          | VERDE    |  1.50 |
++--------+--------------------+----------+-------+
+9 rows in set (0.000 sec)
